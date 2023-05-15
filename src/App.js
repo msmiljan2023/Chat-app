@@ -2,28 +2,43 @@ import React, { useState, useEffect } from 'react';
 import Messages from './Messages';
 import Input from './Input';
 import './App.css';
+import Scaledrone from 'scaledrone-react-native';
 
 const App = () => {
   const [messages, setMessages] = useState([]);
   const [drone, setDrone] = useState(null);
-  const channelID = '1jJPqqZfTkgfKXNM'; // Replace with your own channel ID
+  const channelID = 'uI0rRE5A0ZifuZBv';
+  const apiKey = '7EnBDGcEt13jmBY7FdeF2adaoSfJ9OAf';
 
   useEffect(() => {
     const initializeChat = async () => {
-      const Scaledrone = require('scaledrone-react-native').default;
-      const drone = new Scaledrone('ulFkgG6JXx5Ei5VShbTbEagc9ZEyeuNCY'); // Replace with your own Scaledrone API key
+      const drone = new Scaledrone(apiKey);
 
       drone.on('open', error => {
         if (error) {
           console.error(error);
         } else {
-          setDrone(drone);
+          console.log('Connected to Scaledrone');
+          const room = drone.subscribe(channelID);
+          room.on('open', error => {
+            if (error) {
+              console.error(error);
+            } else {
+              console.log('Joined room');
+            }
+          });
         }
       });
 
-      drone.on('message', message => {
-        setMessages(prevMessages => [...prevMessages, message]);
+      drone.on('message', (message, room) => {
+        const newMessage = {
+          text: message.data,
+          sender: message.clientId,
+        };
+        setMessages(prevMessages => [...prevMessages, newMessage]);
       });
+
+      setDrone(drone);
     };
 
     initializeChat();
@@ -33,7 +48,7 @@ const App = () => {
     if (drone) {
       drone.publish({
         room: channelID,
-        message: messageText
+        message: messageText,
       });
     }
   };

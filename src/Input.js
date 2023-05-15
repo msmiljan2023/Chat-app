@@ -21,9 +21,9 @@ const Input = ({ sendMessage }) => {
         type="text"
         value={inputValue}
         onChange={handleChange}
-        placeholder="Type your message..."
+        placeholder="Upišite svoju poruku..."
       />
-      <button type="submit">Send</button>
+      <button type="submit">Pošalji</button>
     </form>
   );
 };

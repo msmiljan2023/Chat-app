@@ -11,8 +11,6 @@
     "react-native-get-random-values": "^1.8.0",
     "react-native-udp": "^4.1.7",
     "react-scripts": "5.0.1",
-    "scaledrone-node": "^1.5.0",
-    "scaledrone-react-native": "^1.5.0",
     "sockjs-client": "^1.6.1",
     "web-vitals": "^2.1.4"
   },

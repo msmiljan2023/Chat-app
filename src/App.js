@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Messages from './Messages';
 import Input from './Input';
 import './App.css';
-import Scaledrone from 'scaledrone-react-native';
+
 
 const App = () => {
+  
   const [messages, setMessages] = useState([]);
   const [drone, setDrone] = useState(null);
   const channelID = 'uI0rRE5A0ZifuZBv';
@@ -12,6 +13,7 @@ const App = () => {
 
   useEffect(() => {
     const initializeChat = async () => {
+      //const drone = new Scaledrone(channelID);
       const drone = new Scaledrone(channelID);
 
       drone.on('open', error => {
@@ -36,6 +38,7 @@ const App = () => {
           sender: message.clientId,
         };
         setMessages(prevMessages => [...prevMessages, newMessage]);
+        //console.log(prevMessages, newMessage);
       });
 
       setDrone(drone);
@@ -45,12 +48,19 @@ const App = () => {
   }, []);
 
   const sendMessage = messageText => {
-    if (drone) {
+    const newMessage = {
+      text: messageText,
+      sender: "martina"
+    };
+    setMessages(prevMessages => [...prevMessages, newMessage]);
+    console.log(messages);
+   
+    /*if (drone) {
       drone.publish({
         room: channelID,
         message: messageText,
       });
-    }
+    }*/
   };
 
   return (

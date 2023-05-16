@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 const Input = ({ sendMessage }) => {
   const [inputValue, setInputValue] = useState('');
+  
 
   const handleChange = event => {
     setInputValue(event.target.value);
@@ -16,11 +17,11 @@ const Input = ({ sendMessage }) => {
   };
 
   return (
-    <form className="Input" onSubmit={handleSubmit}>
+    <form className="Input" onSubmit={e => handleSubmit(e)}>
       <input
         type="text"
         value={inputValue}
-        onChange={handleChange}
+        onChange={e => handleChange(e)}
         placeholder="Upišite svoju poruku..."
       />
       <button type="submit">Pošalji</button>

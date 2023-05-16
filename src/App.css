@@ -1,4 +1,4 @@
-.App {
+.app {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,32 +6,67 @@
   height: 100vh;
 }
 
-.Messages {
-  width: 300px;
+.messages {
+  width: 640px;
   height: 400px;
   overflow-y: auto;
   border: 2px solid #db0707;
   padding: 10px;
   margin-bottom: 20px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
 }
 
-.Message {
+.message {
   margin-bottom: 10px;
-}
-
-.Message__user {
-  font-weight: bold;
-}
-
-.Input {
+  max-width: 320px;
   display: flex;
 }
 
-.Input input {
+.message.currentMember {
+  margin-left: auto;
+  text-align: right;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.message.currentMember .texts .text {
+  background: #0783db;
+}
+
+.avatar {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.texts {
+  display: flex;
+  flex-direction: column;
+}
+
+.texts .user {
+  display: block;
+  font-weight: bold;
+}
+
+.texts .text {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.input {
+  display: flex;
+}
+
+.input input {
   flex: 1;
   padding: 5px;
 }
 
-.Input button {
+.input button {
   padding: 5px 10px;
 }

@@ -1,35 +1,31 @@
 import React from 'react';
 
-const Messages = ({messages}) => {
+const Messages = (props) => {
+    const {messages, currentMember} = props;
 
-    if(messages.lenght){console.log(messages);
-        return (
-            <ul className="Messages">
-               {
-                messages?.map((message, index) => renderMessage(message, index))
-                }
-              
-            </ul>
-          );
-    }
-
-    
-
-
+    return (
+        <ul className="messages">
+            {messages?.map((m, i) => renderMessages(m, i, currentMember))}
+        </ul>
+    )
 };
 
-const renderMessage = (message, index) => {
-    const {text} = message;
-    
-    return (
-    <li>
-         <div key={index} className="Message">
-          <span className="Message__user">{message.clientData.username}: </span>
-          <span className="Message__text">{text}</span>
-        </div>
-    </li>
-    )
+const renderMessages = (message, index, currentMember) => {
+    const messageFromMe = message?.member?.id === currentMember?.id;
+    const className = messageFromMe ? 'message currentMember' : 'message';
 
+    return (
+        <li key={index} className={className}>
+            <span
+                className="avatar"
+                style={{backgroundColor: message.member.color}}
+            />
+            <div key={index} className="texts">
+                <span className="user">{message.member.username}: </span>
+                <span className="text">{message.text}</span>
+            </div>
+        </li>
+    )
 }
 
 export default Messages;

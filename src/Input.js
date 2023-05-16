@@ -17,7 +17,7 @@ const Input = ({ sendMessage }) => {
   };
 
   return (
-    <form className="Input" onSubmit={e => handleSubmit(e)}>
+    <form className="input" onSubmit={e => handleSubmit(e)}>
       <input
         type="text"
         value={inputValue}

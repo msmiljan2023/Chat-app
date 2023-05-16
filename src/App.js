@@ -8,11 +8,11 @@ const App = () => {
   const [messages, setMessages] = useState([]);
   const [drone, setDrone] = useState(null);
   const channelID = 'uI0rRE5A0ZifuZBv';
-  const apiKey = '7EnBDGcEt13jmBY7FdeF2adaoSfJ9OAf';
+  
 
   useEffect(() => {
     const initializeChat = async () => {
-      const drone = new Scaledrone(apiKey);
+      const drone = new Scaledrone(channelID);
 
       drone.on('open', error => {
         if (error) {

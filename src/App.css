@@ -10,7 +10,7 @@
   width: 640px;
   height: 400px;
   overflow-y: auto;
-  border: 2px solid #db0707;
+  border: 2px solid #333333;
   padding: 10px;
   margin-bottom: 20px;
   list-style: none;
@@ -32,7 +32,7 @@
 }
 
 .message.currentMember .texts .text {
-  background: #0783db;
+  background: #a1d6ff;
 }
 
 .avatar {
@@ -40,22 +40,32 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
+  line-height: 32px;
+  font-weight: bold;
+  letter-spacing: -2px;
+  text-align: center;
 }
 
 .texts {
   display: flex;
   flex-direction: column;
+  margin: 0 10px;
 }
 
 .texts .user {
   display: block;
   font-weight: bold;
+  margin-bottom: 4px;
 }
 
 .texts .text {
   display: inline-block;
   padding: 8px 12px;
   border-radius: 8px;
+}
+
+.message .texts .text {
+  background: #ebebeb;
 }
 
 .input {

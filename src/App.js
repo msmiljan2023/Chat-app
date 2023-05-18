@@ -15,66 +15,53 @@ const randomColor = () => {
   return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
 }
 
+const drone = new Scaledrone('uI0rRE5A0ZifuZBv'); // eslint-disable-line
+const roomName = "martinas-room";
 
 const App = () => {
   const [messages, setMessages] = useState([]);
-  const [member, setMember] = useState({
-    color: randomColor(),
-    username: randomName()
-  })
-  const [drone, setDrone] = useState(null);
-  const channelID = 'uI0rRE5A0ZifuZBv';
+  const [member, setMember] = useState({color: randomColor(), username: randomName()});
 
+  drone.data = member;
 
   useEffect(() => {
-    const initializeChat = async () => {
-      const drone = new Scaledrone(channelID); // eslint-disable-line
-
+    const initializeChat = () => {
       drone.on('open', error => {
         if (error) {
-          console.error(error);
+          console.log(error);
+          drone.unsubscribe();
         } else {
           console.log('Connected to Scaledrone');
-          const room = drone.subscribe(channelID);
-
           const stateMember = {...member};
           stateMember.id = drone.clientId;
-          setMember({...stateMember});
+          setMember(stateMember);
 
-          room.on('open', error => {
-            if (error) {
-              console.error(error);
-            } else {
-              console.log('Joined room');
-            }
+          const room = drone.subscribe(roomName);
+          room.on('data', (data) => {
+            const messagesList = messages; // => []
+            messagesList.push({ //push u messageList
+              member: data.user,
+              text: data.text
+            });
+            setMessages([...messagesList]);
           });
         }
       });
-
-      drone.on('message', (message, room) => {
-        const newMessage = {
-          text: message.data,
-          sender: message.clientId,
-        };
-        setMessages(prevMessages => [...prevMessages, newMessage]);
-      });
-
-      setDrone(drone);
     };
 
     initializeChat();
-  }, []);
+  }, [messages, member]);
 
-  const sendMessage = messageText => {
-    const messagesList = messages;
-    messagesList.push({
-      text: messageText,
-      member: member
+  const sendMessage = (messageText) => {
+    // publish to scaledrone room
+    drone.publish({
+      room: roomName,
+      message: {
+        text: messageText,
+        user: member
+      }
     });
-    setMessages([...messagesList]);
   };
-
-
 
   return (
       <div className="app">

@@ -19,7 +19,9 @@ const renderMessages = (message, index, currentMember) => {
             <span
                 className="avatar"
                 style={{backgroundColor: message.member.color}}
-            />
+            >
+                {message.member.username.charAt(0).toUpperCase()}
+            </span>
             <div key={index} className="texts">
                 <span className="user">{message.member.username}: </span>
                 <span className="text">{message.text}</span>

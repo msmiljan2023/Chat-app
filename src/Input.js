@@ -14,6 +14,9 @@ const Input = ({ sendMessage }) => {
       sendMessage(inputValue.trim());
       setInputValue('');
     }
+    else{
+      alert("Molim unesite poruku.");
+    }
   };
 
   return (

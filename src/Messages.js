@@ -1,14 +1,15 @@
 import React from 'react';
 
-const Messages = (props) => {
-    const {messages, currentMember} = props;
+const Messages = (props) => { //def kao funk komp, prima props kao parametar koji predstavlja property passan kompoenenti
+    const {messages, currentMember} = props; //poruke i trenutni član su ekstraktani iz propsa koristeći object destructuring
 
-    return (
+    return ( // 
         <ul className="messages">
-            {messages?.map((m, i) => renderMessages(m, i, currentMember))}
+            {messages?.map((m, i) => renderMessages(m, i, currentMember))} 
         </ul>
     )
 };
+//The map function allows us to transform each item in the array and return a new array of transformed items.
 
 const renderMessages = (message, index, currentMember) => {
     const messageFromMe = message?.member?.id === currentMember?.id;

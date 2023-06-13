@@ -26,19 +26,19 @@ const App = () => {
 
   useEffect(() => {
     const initializeChat = () => {
-      drone.on('open', error => {
+      drone.on('open', error => { //handla se connection status
         if (error) {
           console.log(error);
           drone.unsubscribe();
         } else {
           console.log('Connected to Scaledrone');
-          const stateMember = {...member};
+          const stateMember = {...member}; //spread operator or object destructuring - creates a copy of existing object. new object - stateMember
           stateMember.id = drone.clientId;
-          setMember(stateMember);
+          setMember(stateMember); //updates member state variablu
 
-          const room = drone.subscribe(roomName);
-          room.on('data', (data) => {
-            const messagesList = messages; // => []
+          const room = drone.subscribe(roomName); //app će osluškivati u toj sobi
+          room.on('data', (data) => { //event listener za dolazeće poruke, kad god dođe nova poruka the code inside the callback function will execute.
+            const messagesList = messages; // => [] messagesList is declared and initialized as a reference to the messages array from the component's state.Da se izbjegne direktno modificireANJE messages
             messagesList.push({ //push u messageList
               member: data.user,
               text: data.text
@@ -53,7 +53,7 @@ const App = () => {
   }, [messages, member]);
 
   const sendMessage = (messageText) => {
-    // publish to scaledrone room
+    // publish to scaledrone room, poruka se šalje u sobu specificiranu imenom roomName
     drone.publish({
       room: roomName,
       message: {
@@ -66,7 +66,7 @@ const App = () => {
   return (
       <div className="app">
         <h1>Chat App</h1>
-        <Messages messages={messages} currentMember={member} />
+        <Messages messages={messages} currentMember={member} /> 
         <Input sendMessage={sendMessage} />
       </div>
   );
